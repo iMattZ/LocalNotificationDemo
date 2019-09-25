@@ -173,3 +173,16 @@ NSLog(@"存在的ID:%@\n",req.identifier);
 }
 
 ```
+
+### 5.app处于前台显示推送:在AppDelegate添加
+```
+//iOS10新增：处理前台收到通知的代理方法
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+NSDictionary * userInfo = notification.request.content.userInfo;
+if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {//应用处于前台时的远程推送接受
+
+} else {//应用处于前台时的本地推送接受
+completionHandler(UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert);//
+}
+}
+```
